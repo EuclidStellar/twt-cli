@@ -52,8 +52,9 @@ sudo mv twt /usr/local/bin
 
 1. Obtain your Twitter API keys from the [Twitter Developer Portal](https://developer.twitter.com/).
 2. Run `twt` in your terminal.
-3. Enter your Twitter API keys when prompted.
-4. Enter your tweet content when prompted.
+3. Use `twt -c` to configure your Twitter API keys.
+4. Enter your Twitter API keys when prompted.
+5. Enter your tweet content when prompted.
 
 
 # Contributing to TWT - Twitter CLI
