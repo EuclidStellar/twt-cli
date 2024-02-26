@@ -6,6 +6,7 @@ import (
 	"crypto/sha1"
 	"encoding/base64"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
@@ -28,6 +29,21 @@ type TwitterKeys struct {
 }
 
 func main() {
+	
+	fmt.Println("Welcome to TWT ,your GO-to twitter")
+	fmt.Println("Enter your tweet and we will post it for you.")
+	fmt.Println("use twc -c to change your twitter keys")
+	changeKeys := flag.Bool("c", false, "Change Twitter API keys")
+	flag.Parse()
+
+	if *changeKeys {
+		fmt.Println("Changing Twitter API keys...")
+		keys := getTwitterKeys()
+		saveKeys(keys)
+		fmt.Println("Twitter API keys updated successfully.")
+		return
+	}
+
 	var keys TwitterKeys
 
 	if _, err := os.Stat(keysFile); os.IsNotExist(err) {
@@ -36,7 +52,6 @@ func main() {
 
 		saveKeys(keys)
 	} else {
-
 		keys = loadKeys()
 	}
 
@@ -177,4 +192,3 @@ func loadKeys() TwitterKeys {
 	}
 	return keys
 }
-
