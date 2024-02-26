@@ -3,6 +3,10 @@
 
 TWT is a command-line tool written in Go that allows you to post tweets to Twitter directly from your terminal.
 
+<img src="https://drive.google.com/uc?id=1p3gLL0jqKgQixQHQZsabc56YFnC6eWY2" alt="Image Description" width="400">
+
+
+
 ## Installation
 
 ### Pre-built Binaries
