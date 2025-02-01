@@ -18,7 +18,14 @@ import (
 )
 
 const (
-	keysFile = "twitter_keys.json"
+	keysFileName = "twitter_keys.json"
+)
+
+// Get users home directory and assign it to dirname
+var (
+	homeDirname, _ = os.UserHomeDir()
+	dirname		= homeDirname + "/.config/twt/"
+	keysFile = dirname + keysFileName
 )
 
 type TwitterKeys struct {
@@ -164,18 +171,41 @@ func getUserInput() string {
 	return input
 }
 
+
 func saveKeys(keys TwitterKeys) {
 	data, err := json.MarshalIndent(keys, "", "  ")
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
 	}
+	
+	createDirectoryIfNotExists(dirname)
+
 	err = ioutil.WriteFile(keysFile, data, 0644)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
 	}
 	fmt.Println("Twitter API keys saved successfully.")
+}
+
+
+
+
+// createDirectoryIfNotExists checks if a directory exists and creates it if it doesn't
+// The function will create all necessary parent directories
+// path: the full directory path to create
+// returns an error if the operation fails, nil otherwise
+func createDirectoryIfNotExists(path string) error {
+    // Check if directory already exists
+    if _, err := os.Stat(path); os.IsNotExist(err) {
+        // Create the directory with all necessary parents
+        err := os.MkdirAll(path, 0755)
+        if err != nil {
+            return err
+        }
+    }
+    return nil
 }
 
 func loadKeys() TwitterKeys {
